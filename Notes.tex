@@ -1,0 +1,36 @@
+\documentclass[twoside]{article}
+\usepackage{amsmath,amsfonts,listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+\section{Assumptions}
+We have the linear dynamical system:\[\begin{array}{lclr}l_{t+1} & = & A_{t}l_{t}+B_{t}u_{t}+g_{t}\epsilon_{t}&\epsilon_{t}\sim\mathcal{N}(0,1) \\ Z_{t} & = & C_{t}l_{t} + D_{t}u_{t} + \sigma_{t}\varepsilon_{t} & \varepsilon_{t}\sim\mathcal{N}(0,1)\end{array}\]
+where $A\in\mathbb{R}^{m\times n}, B\in\mathbb{R}^{m\times r}, C\in\mathbb{R}^{z\times m}, D\in\mathbb{R}^{z\times r}, l\in\mathbb{R}^{m}, u\in\mathbb{R}^{r}, Z\in\mathbb{R}^{z}, \epsilon\in\mathbb{R}^{m}, \varepsilon\in\mathbb{R}^{z}$
+However, it simplifies if, as in our situation, C = I, and D = 0.
+
+\section{Potential mistakes}
+In computing the likelihood: $\mathcal{N}(z_{t}|\mu_{t},\Sigma_{t})$
+Compare the paper's calculation:\[\begin{array}{lcl} \mu_{1} & = & a_{1}^{T}\mu_{0} \\ \Sigma_{1} & = & a_{1}^{T}\Sigma_{0}a_{1} + \sigma_{1}^{2} \\ \mu_{t} & = & a_{t}F_{t}f_{t-1} \\ \Sigma_{t} & = & a_{t}^{T}(F_{t}S_{t}F_{t}^{T}+g_{t}g_{t}^{T})a_{t}+\sigma_{t}^{2}\end{array}\]
+with my control version:
+\begin{lstlisting}
+mu = tf.matmul(C, tf.add(tf.matmul(A,l_filtered), tf.matmul(B,u)))
+mu = tf.add(tf.matmul(tf.matmul(a, F, transpose_a=True), f), b)
+
+temp = tf.matmul(tf.matmul(A, S), A, transpose_b=True) + tf.matmul(g, g, transpose_b=True)
+Sigma = tf.matmul(tf.matmul(C, temp), C, transpose_b=True) + tf.square(sigma)
+\end{lstlisting}
+\end{document}
