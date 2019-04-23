@@ -17,20 +17,23 @@
   tabsize=3
 }
 \begin{document}
-\section{Ideas}
+\section{Ideas/Issues}
+Even if I train the obseravtion model and the controls at the same time succesfully, how do I motivate the controls to do what I want?
+Use the built in reward (+1 for every time frame where the pole is "up")?
 \subsection{Training}
 The considerations for training are:
 \begin{itemize}
-\item What/when I'm training
-\item what the goal of that training is
-\item How to get training samples
+\item What/when I'm training (observation model, control, 
+\item what the goal of that training is(learn to control the system, or just explore, i.e. learn to predict the next state)
+\item How to get training samples(online/offline)
 \item LSTM fixed/variable length
 \item Inputs to LSTM(physical specifications, previous outputs, etc.)
-\item 
 \end{itemize}
-
+\subsection{Thoughts}
 \begin{itemize}
-\item Train transition model with LQR, hope that the model learns how to linearize given any particular observation
+\item Train transition model with LQR, hope that the model learns how to linearize given any particular observation. Then separately train the learned transition/control models to put the pole into any place of our choosing. 
+Loss function: euclidean distance from our desired state? Only works if we have knowledge of what the states mean
+\item Suppose that I include the previous state as input to the LSTM, the system becomes auto-regressive, do the assumptions leading to the kalman filter, and the log-likelihood function still hold?
 \end{itemize}
 
 \section{Assumptions}
