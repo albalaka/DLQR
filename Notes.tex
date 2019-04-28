@@ -18,8 +18,10 @@
 }
 \begin{document}
 \section{Ideas/Issues}
-Even if I train the obseravtion model and the controls at the same time succesfully, how do I motivate the controls to do what I want?
-Use the built in reward (+1 for every time frame where the pole is "up")? Add an extra term to loss that depends on both time and controls?
+Even if I train the obseravtion model and the controls at the same time succesfully, how do I motivate the controls to do what I want?\\
+Use the built in reward (+1 for every time frame where the pole is "up")? Add an extra term to loss that depends on both time and controls?\\
+Multiply the loss term by a factor of $1/t$ or $1/t^{2}$. Something along those lines to get implicit reliance on time component. Suggests that a system that learns to stay upright longer has less error/smaller gradient than a system that falls over quickly.
+Run x trials with the current model, train the model on those trials with the loss multiplier. Repeat with the updated parameters.
 \subsection{Training}
 The considerations for training are:
 \begin{itemize}
