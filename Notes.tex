@@ -22,9 +22,13 @@ Even if I train the obseravtion model and the controls at the same time succesfu
 
 Use the built in reward (+1 for every time frame where the pole is "up")? Add an extra term to loss that depends on both time and controls?\\
 
+Devise a better loss function. The current loss function is $\mathcal{L}(\phi)=\sum_{i=1}^{N}{\log{p_{SS}}(z_{1:T_{i}}|\Theta_{1:T_{i}}})$\\
+
+Maybe use unscented Kalman Filter??\\
+
 Multiply the loss term by a factor of $1/t$ or $1/t^{2}$. Something along those lines to get implicit reliance on time component. Suggests that a system that learns to stay upright longer has less error/smaller gradient than a system that falls over quickly.\\
 
-Run x trials with the current model, train the model on those trials with the loss multiplier. Repeat with the updated parameters.
+Run x trials with the current model, train the model on those trials with the loss multiplier. Repeat with the updated parameters.\\
 
 Need a separate optimization problem for learning the control? Maybe learn mapping from observations to control directly with nn.\\
 Design a policy function/mapping from observations to controls
