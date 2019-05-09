@@ -22,6 +22,8 @@ Even if I train the obseravtion model and the controls at the same time succesfu
 
 Use the built in reward (+1 for every time frame where the pole is "up")? Add an extra term to loss that depends on both time and controls?\\
 
+Incorporate an advantage function(expected rewards-actual rewards) to the loss function\\
+
 Devise a better loss function. The current loss function is $\mathcal{L}(\phi)=\sum_{i=1}^{N}{\log{p_{SS}}(z_{1:T_{i}}|\Theta_{1:T_{i}}})$\\
 
 Maybe use unscented Kalman Filter??\\
