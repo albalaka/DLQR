@@ -2,7 +2,7 @@ import gym
 import control as ct
 import numpy as np
 #env = gym.make('CartPole-v1')
-env = gym.make('Custom_CartPole-v0', thetaacc_error=2, initial_state=1)
+env = gym.make('Custom_CartPole-v0', thetaacc_error=0, initial_state_variation=[1,1,1,1])
 g = env.gravity
 M = env.masscart
 m = env.masspole
